@@ -1,0 +1,21 @@
+{
+  "presets": [
+    // "@babel/preset-env", //compiling ES2015+ syntax
+    "@babel/preset-react", //for react
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        //leave imports as they are
+        "modules": false,
+        "targets": {
+          "browsers": ["last 5 chrome versions", "last 5 firefox versions"]
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "babel-plugin-syntax-dynamic-import" //leave dynamic imports untouched
+  ]
+}
