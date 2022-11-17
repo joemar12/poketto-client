@@ -7,8 +7,8 @@ const router = createBrowserRouter(routes);
 
 export const App = () => {
   return (
-    // <Provider store={store}>
-    <RouterProvider router={router} />
-    // </Provider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 };
