@@ -1,6 +1,7 @@
 import { useAppSelector } from "../../../hooks";
+import { selectThemeName } from "../../../theme/themeSlice";
 const Siderbar = () => {
-  const themeName = useAppSelector((state) => state.theme.themeName);
+  const themeName = useAppSelector((state) => selectThemeName(state));
   return (
     <>
       <h1 className="text-lg">Sidebar</h1>

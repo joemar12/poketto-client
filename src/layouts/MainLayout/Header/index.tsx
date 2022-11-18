@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { loadTheme } from "../../../theme/themeSlice";
+import { loadTheme, selectThemeName } from "../../../theme/themeSlice";
 
 const Header = () => {
-  const currentTheme = useAppSelector((state) => state.theme.themeName);
-  const isDarkTheme = currentTheme == "dark";
+  const currentTheme = useAppSelector((state) => selectThemeName(state));
+  const isDarkTheme = currentTheme === "dark";
   const dispatch = useAppDispatch();
   return (
     <>
