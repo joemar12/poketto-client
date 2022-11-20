@@ -4,33 +4,39 @@ import { RouteObject, Navigate } from "react-router-dom";
 import BaseLayout from "./layouts/BaseLayout";
 import MainLayout from "./layouts/MainLayout";
 import SuspenseLoader from "./components/SuspenseLoader";
+import { RequireAuth } from "./features/Authentication";
 
-function Loader<T>(Component: React.ComponentType<T>) {
+function Loader<T>(Component: React.ComponentType<T>, requiresAuth = false) {
   return (props: T) => (
     <Suspense fallback={<SuspenseLoader />}>
-      <Component {...props} />
+      {requiresAuth ? (
+        <RequireAuth loginRoute="/login" replace>
+          <Component {...props} />
+        </RequireAuth>
+      ) : (
+        <Component {...props} />
+      )}
     </Suspense>
   );
 }
 
-const Accounts = Loader(lazy(() => import("./content/applications/Accounts")));
-const Transactions = Loader(
-  lazy(() => import("./content/applications/Transactions"))
-);
+const Login = Loader(lazy(() => import("./pages/Login")));
 
-const SimpleDashboard = Loader(
-  lazy(() => import("./content/dashboards/Simple"))
+const Accounts = Loader(
+  lazy(() => import("./features/Accounts")),
+  true
 );
+const Transactions = Loader(lazy(() => import("./features/Transactions")));
+
+const SimpleDashboard = Loader(lazy(() => import("./pages/Dashboards/Simple")));
 const DetailedDashboard = Loader(
-  lazy(() => import("./content/dashboards/Detailed"))
+  lazy(() => import("./pages/Dashboards/Detailed"))
 );
 
-const NotFound = Loader(lazy(() => import("./content/pages/Status/NotFound")));
-const Maintenance = Loader(
-  lazy(() => import("./content/pages/Status/Maintenance"))
-);
+const NotFound = Loader(lazy(() => import("./pages/Status/NotFound")));
+const Maintenance = Loader(lazy(() => import("./pages/Status/Maintenance")));
 const InternalServerError = Loader(
-  lazy(() => import("./content/pages/Status/InternalServerError"))
+  lazy(() => import("./pages/Status/InternalServerError"))
 );
 
 const routes: RouteObject[] = [
@@ -45,6 +51,10 @@ const routes: RouteObject[] = [
       {
         path: "home",
         element: <Navigate to="/" replace />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
       {
         path: "status",

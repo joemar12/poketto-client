@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { App } from "./app";
+import { MsalInstance } from "./features/Authentication";
 
 const container = document.getElementById("root");
 if (container == null) {
@@ -11,6 +12,6 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App msalInstance={MsalInstance} />
   </React.StrictMode>
 );

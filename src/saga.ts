@@ -1,5 +1,5 @@
 import { fork } from "redux-saga/effects";
-import { accountsSaga } from "./content/applications/Accounts/saga";
+import { accountsSaga } from "./features/Accounts/saga";
 
 export default function* rootSaga() {
   yield fork(accountsSaga);

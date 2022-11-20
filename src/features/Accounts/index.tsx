@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { RootState } from "../../../store";
-import { selectUserAccounts } from "./accountsSlice";
-import { getUserAccountsFetch } from "./accountsSlice";
+import { useAppSelector } from "../../hooks";
+import { RootState } from "../../store";
+import { selectUserEmail } from "../Authentication/user.slice";
+import { selectUserAccounts } from "./accounts.slice";
+import { getUserAccountsFetch } from "./accounts.slice";
 import { Account } from "./types";
 
 interface AccountsProps {
@@ -15,9 +17,10 @@ interface AccountsProps {
 
 const AccountsList = (props: AccountsProps) => {
   const { accounts, fetchAccounts } = props;
+  const userId = useAppSelector((state) => selectUserEmail(state));
   useEffect(() => {
-    fetchAccounts("test");
-  }, []);
+    fetchAccounts(userId);
+  }, [userId]);
 
   return (
     <>

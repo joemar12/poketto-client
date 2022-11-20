@@ -4,7 +4,7 @@ import {
   getUserAccountsFetch,
   getUserAccountsSuccess,
   getUserAccountsFailure,
-} from "./accountsSlice";
+} from "./accounts.slice";
 import type { Account } from "./types";
 
 export function* accountsSaga() {
