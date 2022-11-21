@@ -26,11 +26,18 @@ const Accounts = Loader(
   lazy(() => import("./features/Accounts")),
   true
 );
-const Transactions = Loader(lazy(() => import("./features/Transactions")));
+const Transactions = Loader(
+  lazy(() => import("./features/Transactions")),
+  true
+);
 
-const SimpleDashboard = Loader(lazy(() => import("./pages/Dashboards/Simple")));
+const SimpleDashboard = Loader(
+  lazy(() => import("./pages/Dashboards/Simple")),
+  true
+);
 const DetailedDashboard = Loader(
-  lazy(() => import("./pages/Dashboards/Detailed"))
+  lazy(() => import("./pages/Dashboards/Detailed")),
+  true
 );
 
 const NotFound = Loader(lazy(() => import("./pages/Status/NotFound")));

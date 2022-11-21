@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
+    getDefaultMiddleware().concat(sagaMiddleware),
 });
 sagaMiddleware.run(rootSaga);
 

@@ -1,5 +1,5 @@
 import { RootState } from "./../../store";
-import { IPublicClientApplication } from "@azure/msal-browser";
+import { AuthenticationResult } from "@azure/msal-browser";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserProfile {
@@ -9,7 +9,6 @@ export interface UserProfile {
   lastName: string;
   position: string;
   email: string;
-  picture: string;
 }
 
 interface UserState {
@@ -20,11 +19,9 @@ const initialState = {
   profile: {
     displayName: "",
     firstName: "",
-    initials: "",
     lastName: "",
     position: "",
     email: "",
-    picture: "",
   },
 } as UserState;
 
@@ -32,18 +29,17 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginSuccess: (
-      state,
-      action: PayloadAction<IPublicClientApplication>
-    ) => {},
-    setUserProfile: (state, action: PayloadAction<UserProfile>) => {
+    getUserProfileSuccess: (state, action: PayloadAction<UserProfile>) => {
       state.profile = action.payload;
+    },
+    getUserProfileFailure: (state, action: PayloadAction<string>) => {
+      //TODO: handle MS Graph profile request error
     },
   },
 });
 
-export const { loginSuccess, setUserProfile } = userSlice.actions;
-export const selectUserEmail = (state: RootState) => state.user.profile.email;
-export const selectUserProfilePicture = (state: RootState) =>
-  state.user.profile.picture;
+export const { getUserProfileSuccess, getUserProfileFailure } =
+  userSlice.actions;
+export const selectUserDisplayName = (state: RootState) =>
+  state.user.profile?.firstName;
 export default userSlice.reducer;

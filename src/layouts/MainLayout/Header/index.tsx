@@ -1,23 +1,38 @@
+import { useMsal } from "@azure/msal-react";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { LoginRequest } from "../../../features/Authentication";
 import {
-  selectUserEmail,
-  selectUserProfilePicture,
-} from "../../../features/Authentication/user.slice";
+  getUserProfileSuccess,
+  selectUserDisplayName,
+} from "../../../features/Authentication";
+import { extractUserProfileFromAuthResult } from "../../../features/Authentication/utils";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { RootState } from "../../../store";
 import { loadTheme, selectThemeName } from "../../../theme/themeSlice";
 
-const Header = () => {
-  const currentTheme = useAppSelector((state) => selectThemeName(state));
-  const currentUser = useAppSelector((state) => selectUserEmail(state));
-  const currentUserProfilePicture = useAppSelector((state) =>
-    selectUserProfilePicture(state)
-  );
-  const isDarkTheme = currentTheme === "dark";
+interface HeaderProps {
+  currentUser: string;
+}
+
+const Header = ({ currentUser }: HeaderProps) => {
+  const { instance, accounts } = useMsal();
   const dispatch = useAppDispatch();
+  const currentTheme = useAppSelector((state) => selectThemeName(state));
+  useEffect(() => {
+    if (accounts.length > 0) {
+      instance.acquireTokenSilent(LoginRequest).then((result) => {
+        const userProfile = extractUserProfileFromAuthResult(result);
+        dispatch(getUserProfileSuccess(userProfile));
+      });
+    }
+  }, []);
+
+  const isDarkTheme = currentTheme === "dark";
   return (
     <>
       <h1 className="text-lg">Global Header</h1>
       <h1 className="text-lg">hi {currentUser}</h1>
-      <img src={currentUserProfilePicture}></img>
       <button
         onClick={() => dispatch(loadTheme(isDarkTheme ? "light" : "dark"))}
       >
@@ -27,4 +42,8 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: RootState) => ({
+  currentUser: selectUserDisplayName(state),
+});
+
+export default connect(mapStateToProps, null)(Header);

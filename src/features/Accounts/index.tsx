@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
-import { selectUserEmail } from "../Authentication/user.slice";
+import { selectUserDisplayName } from "../Authentication/user.slice";
 import { selectUserAccounts } from "./accounts.slice";
 import { getUserAccountsFetch } from "./accounts.slice";
 import { Account } from "./types";
@@ -17,7 +17,7 @@ interface AccountsProps {
 
 const AccountsList = (props: AccountsProps) => {
   const { accounts, fetchAccounts } = props;
-  const userId = useAppSelector((state) => selectUserEmail(state));
+  const userId = useAppSelector((state) => selectUserDisplayName(state));
   useEffect(() => {
     fetchAccounts(userId);
   }, [userId]);

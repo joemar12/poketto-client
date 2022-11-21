@@ -4,8 +4,6 @@ import {
   EventMessage,
   AuthenticationResult,
 } from "@azure/msal-browser";
-import store from "../../store";
-import { loginSuccess } from "./user.slice";
 import { MsalConfig } from "./msal.config";
 
 const instance = new PublicClientApplication(MsalConfig);
@@ -19,8 +17,6 @@ instance.addEventCallback((event: EventMessage) => {
     const payload = event.payload as AuthenticationResult;
     const account = payload.account;
     instance.setActiveAccount(account);
-    console.log("active account: " + instance.getActiveAccount());
-    store.dispatch(loginSuccess(instance)); //TODO: find a way to dispatch this
   }
 });
 

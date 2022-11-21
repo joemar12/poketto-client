@@ -4,6 +4,7 @@ export const MsalConfig: Configuration = {
   auth: {
     clientId: process.env.MSAL_CLIENT_ID,
     authority: process.env.MSAL_AUTHORITY,
+    knownAuthorities: [process.env.MSAL_DOMAIN],
     redirectUri: process.env.BASE_URL,
     postLogoutRedirectUri: process.env.MSAL_POST_LOGOUT_URI,
   },
@@ -13,9 +14,13 @@ export const MsalConfig: Configuration = {
   },
 };
 
-// Add here scopes for id token to be used at MS Identity Platform endpoints.
+// Add here scopes to access the exposed api
 export const LoginRequest: PopupRequest = {
-  scopes: ["User.Read"],
+  scopes: [
+    `https://pokettoph.onmicrosoft.com/${process.env.MSAL_API_CLIENT_ID}/transactions.readwrite`,
+    `https://pokettoph.onmicrosoft.com/${process.env.MSAL_API_CLIENT_ID}/accounts.readwrite`,
+  ],
+  prompt: "select_account",
 };
 
 export const GraphConfig = {
