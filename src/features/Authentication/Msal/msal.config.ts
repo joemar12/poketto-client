@@ -1,4 +1,8 @@
-import { Configuration, PopupRequest } from "@azure/msal-browser";
+import {
+  Configuration,
+  EndSessionPopupRequest,
+  PopupRequest,
+} from "@azure/msal-browser";
 
 export const MsalConfig: Configuration = {
   auth: {
@@ -17,8 +21,8 @@ export const MsalConfig: Configuration = {
 // Add here scopes to access the exposed api
 export const LoginRequest: PopupRequest = {
   scopes: [
-    `https://pokettoph.onmicrosoft.com/${process.env.MSAL_API_CLIENT_ID}/transactions.readwrite`,
-    `https://pokettoph.onmicrosoft.com/${process.env.MSAL_API_CLIENT_ID}/accounts.readwrite`,
+    `https://pokettoph.onmicrosoft.com/${process.env.POKETTO_API_CLIENT_ID}/transactions.readwrite`,
+    `https://pokettoph.onmicrosoft.com/${process.env.POKETTO_API_CLIENT_ID}/accounts.readwrite`,
   ],
   prompt: "select_account",
 };

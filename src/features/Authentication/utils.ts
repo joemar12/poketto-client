@@ -1,5 +1,5 @@
 import { AuthenticationResult } from "@azure/msal-browser";
-import { UserProfile } from "./user.slice";
+import { UserProfile } from "./auth.slice";
 export const extractUserProfileFromAuthResult = (
   authResult: AuthenticationResult
 ) => {

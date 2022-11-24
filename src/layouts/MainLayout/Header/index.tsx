@@ -1,15 +1,14 @@
-import { useMsal } from "@azure/msal-react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { LoginRequest } from "../../../features/Authentication";
+import { useMsal } from "@azure/msal-react";
 import {
-  getUserProfileSuccess,
+  LoginRequest,
   selectUserDisplayName,
 } from "../../../features/Authentication";
-import { extractUserProfileFromAuthResult } from "../../../features/Authentication/utils";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { RootState } from "../../../store";
 import { loadTheme, selectThemeName } from "../../../theme/themeSlice";
+import LogoutButton from "../../../components/LogoutButton";
 
 interface HeaderProps {
   currentUser: string;
@@ -21,10 +20,7 @@ const Header = ({ currentUser }: HeaderProps) => {
   const currentTheme = useAppSelector((state) => selectThemeName(state));
   useEffect(() => {
     if (accounts.length > 0) {
-      instance.acquireTokenSilent(LoginRequest).then((result) => {
-        const userProfile = extractUserProfileFromAuthResult(result);
-        dispatch(getUserProfileSuccess(userProfile));
-      });
+      instance.acquireTokenSilent(LoginRequest);
     }
   }, []);
 
@@ -38,6 +34,7 @@ const Header = ({ currentUser }: HeaderProps) => {
       >
         toggle theme
       </button>
+      <LogoutButton />
     </>
   );
 };

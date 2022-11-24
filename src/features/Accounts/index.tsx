@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
-import { selectUserDisplayName } from "../Authentication/user.slice";
+import { selectUserDisplayName } from "../Authentication/auth.slice";
 import { selectUserAccounts } from "./accounts.slice";
 import { getUserAccountsFetch } from "./accounts.slice";
 import { Account } from "./types";

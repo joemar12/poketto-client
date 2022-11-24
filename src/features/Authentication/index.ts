@@ -1,12 +1,12 @@
-import instance from "./MsalInstance";
+import instance from "./Msal/MsalInstance";
 import RequireAuth from "./RequireAuth";
-import userReducer from "./user.slice";
+import userReducer from "./auth.slice";
 import {
-  getUserProfileSuccess,
-  getUserProfileFailure,
+  acquireUserProfileSuccess,
+  loginFailure,
   selectUserDisplayName,
-} from "./user.slice";
-import { MsalConfig, LoginRequest } from "./msal.config";
+} from "./auth.slice";
+import { MsalConfig, LoginRequest } from "./Msal/msal.config";
 
 export {
   instance as MsalInstance,
@@ -14,7 +14,7 @@ export {
   LoginRequest,
   RequireAuth,
   userReducer,
-  getUserProfileFailure,
-  getUserProfileSuccess,
+  loginFailure,
+  acquireUserProfileSuccess as loginSuccess,
   selectUserDisplayName,
 };

@@ -1,0 +1,20 @@
+query {
+  userAccounts {
+    ...account
+    childAccounts {
+      ...account
+      childAccounts {
+        ...account
+        childAccounts {
+          ...account
+        }
+      }
+    }
+  }
+}
+
+fragment account on AccountDto {
+  name
+  description
+  accountType
+}
