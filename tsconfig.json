@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "types": ["react/next", "react-dom/next", "node"],
+    "types": ["react/next", "react-dom/next", "node", "webpack-env"],
     "noImplicitAny": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -15,7 +15,10 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "allowUmdGlobalAccess": true
+    "allowUmdGlobalAccess": true,
+    "paths": {
+      "api/*": ["./src/api/*"]
+    }
   },
-  "include": ["src", "index.d.ts"]
+  "include": ["src", "index.d.ts", "codegen.ts.bak"]
 }

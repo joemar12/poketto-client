@@ -1,34 +1,19 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
-import { selectUserDisplayName } from "../Authentication/auth.slice";
-import { selectUserAccounts } from "./accounts.slice";
-import { getUserAccountsFetch } from "./accounts.slice";
-import { Account } from "./types";
+import { useGetUserAccountsQuery } from "./GetAccounts.generated";
 
-interface AccountsProps {
-  accounts: Account[];
-  fetchAccounts: (userId: string) => {
-    payload: string;
-    type: string;
-  };
-}
+const AccountsList = () => {
+  const { data, isLoading, isFetching } = useGetUserAccountsQuery();
 
-const AccountsList = (props: AccountsProps) => {
-  const { accounts, fetchAccounts } = props;
-  const userId = useAppSelector((state) => selectUserDisplayName(state));
-  useEffect(() => {
-    fetchAccounts(userId);
-  }, [userId]);
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
       <h1 className="text-lg">Accounts</h1>
       <ul>
-        {accounts.map((account) => (
+        {data.userAccounts.map((account) => (
           <li key={account.id}>
-            {account.name} - {account.description}
+            {account.name} - {account.description} - {account.accountType}
           </li>
         ))}
       </ul>
@@ -36,13 +21,4 @@ const AccountsList = (props: AccountsProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  accounts: selectUserAccounts(state),
-});
-
-const mapDispatchToProps = {
-  fetchAccounts: (userId: string) => getUserAccountsFetch(userId),
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(AccountsList);
+export default AccountsList;

@@ -4,12 +4,14 @@ import createSagaMiddleware from "redux-saga";
 import thunk from "redux-thunk";
 import rootSaga from "./saga";
 
+import { api } from "api/baseApi";
 import themeReducer from "./theme/themeSlice";
 import accountsReducer from "./features/Accounts/accounts.slice";
 import authReducer from "./features/Authentication/auth.slice";
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
+  [api.reducerPath]: api.reducer,
   auth: authReducer,
   theme: themeReducer,
   accounts: accountsReducer,
@@ -18,7 +20,10 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sagaMiddleware).concat(thunk),
+    getDefaultMiddleware()
+      .concat(sagaMiddleware)
+      .concat(thunk)
+      .concat(api.middleware),
 });
 sagaMiddleware.run(rootSaga);
 
