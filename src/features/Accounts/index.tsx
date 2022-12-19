@@ -3,7 +3,7 @@ import { useGetUserAccountsQuery } from "./GetAccounts.generated";
 const AccountsList = () => {
   const { data, isLoading, isFetching } = useGetUserAccountsQuery();
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <h1>Loading...</h1>;
   }
 

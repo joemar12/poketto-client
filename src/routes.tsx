@@ -53,7 +53,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "",
-        element: <Navigate to="dashboards/simple" replace />,
+        element: <Navigate to="dashboard/simple" replace />,
       },
       {
         path: "home",
@@ -91,7 +91,7 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    path: "dashboards",
+    path: "dashboard",
     element: <MainLayout />,
     children: [
       {
@@ -116,6 +116,12 @@ const routes: RouteObject[] = [
         path: "accounts",
         element: <Accounts />,
       },
+    ],
+  },
+  {
+    path: "operation",
+    element: <MainLayout />,
+    children: [
       {
         path: "transactions",
         element: <Transactions />,

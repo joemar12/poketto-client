@@ -5,7 +5,9 @@ interface MainWrapperProps {
 }
 
 const MaiWrapper = ({ children }: MainWrapperProps) => {
-  return <div className="main-wrapper">{children}</div>;
+  return (
+    <main className="flex-1 w-full flex flex-col h-screen">{children}</main>
+  );
 };
 
 export default MaiWrapper;
